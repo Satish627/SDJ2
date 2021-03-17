@@ -1,0 +1,32 @@
+package StatePattern.PhoneExample;
+
+public class SoundState implements PhoneState
+{
+  @Override public void onReceiveMessage(String txt, Phone phone)
+  {
+    phone.beepBeep();
+    System.out.println(txt);
+  }
+
+  @Override public void onReceiveCall(Phone phone)
+  {
+  phone.playRingTone();
+  }
+
+  @Override public void onVolumeUp(Phone phone)
+  {
+    int vol= phone.getVolume();
+    if (vol<100){
+      phone.turnVolumeUp();
+    }
+  }
+
+  @Override public void onVolumeDown(Phone phone)
+  {
+    int vol= phone.getVolume();
+    if (vol>1){
+      phone.turnVolumeDown();
+    }
+    else phone.setState(new SilentState());
+  }
+}
